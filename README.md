@@ -1,6 +1,5 @@
 # Pretest
-CODEBUCH					
-Wert	Kommentar		
+Codebuch						
 			
 edgelist	Grundregel: Die Edgelist darf pro Spalte immer nur einen Wert enthalten. Bis auf die ID idealerweise numerisch codiert (als Zahl).		
 from	definiert den Sender in gerichteten Netzwerken. Entspricht ID in der Nodelist. Keine Sonderzeichen, nur ein Wort		
