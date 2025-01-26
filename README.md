@@ -30,4 +30,4 @@ location:	Wo im Besitz -> noch zu klären wie codierbar und sinnvoll
 status:	 Keine Rückgabe an Erben/Besitzer=1, Rückgabe an Erbe/ursprünglichen Besitzer=2		
 			
 			
-NA:	definiert fehlende Werte, bei der Datenerhebung das Feld einfach leer lassen, R rechnet NAs (missing values) automatisch raus..		
+N/A:	definiert fehlende Werte, bei der Datenerhebung unbedingt bei type eintragen, ansonsten Feld einfach leer lassen, R rechnet NAs (missing values) automatisch raus..		
