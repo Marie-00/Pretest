@@ -1,5 +1,5 @@
-# Pretest
-Codebuch						
+# Codebuch
+Pretest						
 			
 Edgeliste:		
 from:	definiert den Sender in gerichteten Netzwerken. Entspricht ID in der Nodelist. Keine Sonderzeichen, nur ein Wort	
