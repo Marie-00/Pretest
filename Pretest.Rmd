@@ -1,0 +1,88 @@
+---
+title: "Pretest Raubkunst"
+author: "Marie-Sophie Herr"
+date: "17.01.2025"
+output: html_document
+---
+1) Thema
+Raubkunst im Zweiten Weltkrieg und die Rolle des Kunsthändlers Hildebrand Gurlitt  (Egonetzwerk Hildebrand Gurlitt)   Ziel ist es, den Weg von Raubkunstwerken zu dokumentieren und die Netzwerke von Besitzern, Kunsthändlern und Institutionen aufzuzeigen, die an der Verbreitung beteiligt waren.
+
+2) Literaturübersicht: Forschungsstand / vergleichbare Studien (mindestens 5 ähnlih
+- Wie haben sich die Netzwerke von Hildebrand Gurlitt und anderen Akteuren auf den Verbleib und die Weitergabe von Raubkunst ausgewirkt?
+- Wo ist die Raubkunst jetzt?
+- Die Kunstwerke, die durch Hildebrand Gurlitt erworben wurden, sind Teil eines komplexen Netzwerks von Besitzern, Kunsthändlern und Institutionen, die den Transfer und die Verwertung von Raubkunst strukturiert und gezielt beeinflusst haben.
+
+3) Fragestellung/Arbeitshypothese
+- https://publikationen.bibliothek.kit.edu/1000174284
+- [https://www.europarl.europa.eu/RegData/etudes/BRIE/2022/698872/EPRS_BRI(2022)698872_DE.pdf](https://www.europarl.europa.eu/RegData/etudes/BRIE/2022/698872/EPRS_BRI(2022)698872_DE.pdf)
+- https://www.academia.edu/6705648/Hagenbund_Methode_und_Praxis_kunsthistorischer_Netzwerkanalyse
+- https://www.braunschweig.de/kultur/kulturentwicklungsprozess/Abschlussbericht-Netzwerkanalyse-BS_Endfassung.pdf
+- https://phbl-opus.phlb.de/frontdoor/deliver/index/docId/11/file/Boll_Diss.pdf
+
+4) Datenzugang klären, Codebuch entwickeln
+https://github.com/Marie-00/Pretest/blob/main/README.md (Codebuch)
+ 
+5) Beispieldaten (Edge- und Nodelist auf github)
+https://github.com/Marie-00/Pretest/tree/main (Edge- und Nodelist)
+
+6) Mögliche Probleme und Herausforderungen
+- Bei vielen Kunstwerken ist noch nicht abschließend geklärt, ob es sich um Raubkunst handelt (durch Vertuschung im zweiten Weltkrieg/ fehlende Quittungen usw.)
+-→ Auch Kunstwerke aufnehmen, die stark darauf hinweisen Raubkunst zu sein? (Archie Berner Museum)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Den Setup-Chunk nicht verändern
+knitr::opts_chunk$set(echo = FALSE)
+library(igraph)
+library(tidygraph)
+library(tidyverse)
+library(manynet)
+```
+
+```{r Daten einlesen}
+#Muss noch ergänzt werden in dem Codebuch
+
+
+# Einlesen der Edge- und Nodelist
+edges <- read.csv("https://raw.githubusercontent.com/Marie-00/Pretest/refs/heads/main/Pretest%20Raubkunst%20Edge-%20und%20Nodelist%20%20-%20Edgelist.csv", header=T, as.is=T, sep = ",")
+
+nodes <- read.csv("https://raw.githubusercontent.com/Marie-00/Pretest/refs/heads/main/Pretest%20Raubkunst%20Edge-%20und%20Nodelist%20%20-%20Nodelist-2.csv", header=T, as.is=T, sep =",")
+
+
+
+# Zusammenführen von Edge- und Nodelist als igraph-Objekt s
+rk <- graph_from_data_frame(d=edges, vertices=nodes, directed=TRUE)
+V(rk)$id <- nodes$id
+
+rk
+
+```
+```{r Erste Visualisierung}
+plot(rk,layout=layout_with_fr,
+    vertex.label=V(rk)$id, vertex.size=20, edge.arrow.size=0.5, main="Raubkunstnetzwerk", sub="Gurlitt")
+plot(rk,layout=layout_with_fr,
+    vertex.label=V(rk)$id, vertex.size=20, edge.arrow.size=0.5, main="Raubkunstnetzwerk", sub="Gurlitt",  vertex.shape = ifelse(V(rk)$type == 1, "circle",   
+                        ifelse(V(rk)$type == 2, "square",  
+                              "csquare")))
+```
+
+```{r schöne Visualisierung}
+plot(rk,
+     layout = layout_with_fr,
+     vertex.label = V(rk)$id,
+     vertex.size = 20,
+     edge.arrow.size = 0.5,
+     main = "Raubkunstnetzwerk",
+     sub = "Gurlitt",
+     vertex.shape = ifelse(V(rk)$type == 1, "circle", 
+                           ifelse(V(rk)$type == 2, "square", 
+                                  ifelse(V(rk)$type == 3, "rectangle", "circle"))),
+     vertex.color = ifelse(V(rk)$type == 1, "pink", 
+                           ifelse(V(rk)$type == 2, "lightblue", 
+                                  ifelse(V(rk)$type == 3, "lightgreen", "white")))
+)
+
+
+```
+
